@@ -24,8 +24,8 @@ def test_letting_view(client):
         country_iso_code='Test'
     )
     letting = Letting.objects.create(
-    title='Title',
-    address_id=address.id
+        title='Title',
+        address_id=address.id
     )
     url = reverse('letting', args=(letting.id,))
     response = client.get(url)
