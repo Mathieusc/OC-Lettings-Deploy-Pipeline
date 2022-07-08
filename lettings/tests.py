@@ -9,7 +9,7 @@ from lettings.models import Letting, Address
 def test_letting_index_view(client):
     url = reverse('lettings_index')
     response = client.get(url)
-    assert b"c'est non" in response.content
+    assert b'Lettings' in response.content
     assert response.status_code == 200
 
 
