@@ -25,6 +25,22 @@ jobs:
           name: Run tests
           command: pytest
 
+  # Push docker image to heroku
+  # - Install Heroku CLI;
+  # - Login to heroku with the API KEY
+  # - Build and push the docker image to Docker Hub
+  deploy-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build and push image to Heroku
+          command: |
+            duco curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-mathieusc web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-mathieusc web
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -32,3 +48,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      - deploy-docker:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: main
