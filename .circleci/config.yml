@@ -25,21 +25,20 @@ jobs:
           name: Run tests
           command: pytest
 
-  # Push docker image to heroku
-  # - Install Heroku CLI;
-  # - Login to heroku with the API KEY
-  # - Build and push the docker image to Docker Hub
-  deploy-docker:
-    machine: true
+  build-and-push:
+    docker:
+      - image: cimg/python:3.10.2
     steps:
       - checkout
-      - run:
-          name: Build and push image to Heroku
-          command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-mathieusc web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-mathieusc web
+      - setup_remote_docker:
+        version: 20.10.17
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
+          docker build -t mathieusc/oc-p13:$TAG .
+          docker tag mathieusc/oc-p13:$TAG mathieusc/oc-p13:latest
+          docker push mathieusc/oc-p13:$TAG
+          docker push mathieusc/oc-P13:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -48,9 +47,25 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - deploy-docker:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: main
+      # - deploy-docker:
+      #     requires:
+      #       - build-and-test
+      #     filters:
+      #       branches:
+      #         only: main
+
+  # Push docker image to heroku
+  # - Install Heroku CLI;
+  # - Login to heroku with the API KEY
+  # - Build and push the docker image to Docker Hub
+  # deploy-docker:
+  #   machine: true
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Build and push image to Heroku
+  #         command: |
+  #           sudo curl https://cli-assets.heroku.com/install.sh | sh
+  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-mathieusc web
+  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-mathieusc web
