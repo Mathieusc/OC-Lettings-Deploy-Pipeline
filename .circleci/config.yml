@@ -52,8 +52,8 @@ jobs:
           name: Push to heroku
           command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP} web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP} web
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -68,15 +68,15 @@ workflows:
   build-and-push-and-deploy:
     jobs:
       - build-and-test
-      - build-and-push:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: main
+      # - build-and-push:
+      #     requires:
+      #       - build-and-test
+      #     filters:
+      #       branches:
+      #         only: main
       - deploy-heroku:
-          requires:
-            - build-and-push
+          # requires:
+          #   - build-and-push
           filters:
             branches:
               only: main
