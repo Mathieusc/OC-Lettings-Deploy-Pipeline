@@ -6,6 +6,7 @@ version: 2.1
 orbs:
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
+  heroku: circleci/heroku@1.0.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -41,6 +42,19 @@ jobs:
           docker push mathieusc/oc-lettings:$TAG
           docker push mathieusc/oc-lettings:latest
 
+  deploy-heroku:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - setup_remote_docker
+      - run:
+          name: Push to heroku
+          command: |
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -51,12 +65,18 @@ workflows:
           filters:
             branches:
               ignore: main
-  build-and-push:
+  build-and-push-and-deploy:
     jobs:
       - build-and-test
       - build-and-push:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only: main
+      - deploy-heroku:
+          requires:
+            - build-and-push
           filters:
             branches:
               only: main
