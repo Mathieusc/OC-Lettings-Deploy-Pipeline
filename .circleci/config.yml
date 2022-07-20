@@ -36,10 +36,10 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
-          docker build -t mathieusc/oc-p13:$TAG .
-          docker tag mathieusc/oc-p13:$TAG mathieusc/oc-p13:latest
-          docker push mathieusc/oc-p13:$TAG
-          docker push mathieusc/oc-P13:latest
+          docker build -t mathieusc/oc-lettings:$TAG .
+          docker tag mathieusc/oc-lettings:$TAG mathieusc/oc-lettings:latest
+          docker push mathieusc/oc-lettings:$TAG
+          docker push mathieusc/oc-lettings:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
