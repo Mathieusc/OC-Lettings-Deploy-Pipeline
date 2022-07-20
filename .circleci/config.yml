@@ -67,10 +67,10 @@ workflows:
               ignore: main
   build-and-push-and-deploy:
     jobs:
-      - build-and-test
+      # - build-and-test
       - build-and-push:
-          requires:
-            - build-and-test
+          # requires:
+          #   - build-and-test
           filters:
             branches:
               only: main
