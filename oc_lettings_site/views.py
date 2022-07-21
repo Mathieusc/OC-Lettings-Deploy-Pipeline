@@ -9,6 +9,6 @@ from django.shortcuts import render
 # Phasellus eleifend ex auctor venenatis tempus.
 # Aliquam vitae erat ac orci placerat luctus.
 # Nullam elementum urna nisi, pellentesque iaculis enim cursus in.
-# Praesent volutpat porttitor magna, non finibus neque cursus id..
+# Praesent volutpat porttitor magna, non finibus neque cursus id.
 def index(request):
     return render(request, 'index.html')
