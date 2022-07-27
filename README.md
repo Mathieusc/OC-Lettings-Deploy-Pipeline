@@ -78,6 +78,21 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 ### Déploiement
 
-Heroku
+Le déploiement sur Heroku nécessite les critères suivants:
 
-[En cours...]
+- Un compte Docker Hub
+- Un compte Heroku
+- Un compte Sentry
+
+Pour la pipeline de CircleCI:
+
+- Avoir un compte CircleCI
+- Autoriser le projet
+- Dans les options du projet, renseigner les variables d'environnements suivantes:
+  - DOCKER_PWD: Mot de passe Docker Hub
+  - DOCKER_USER: Nom de compte Docker Hub
+  - HEROKU_APP: Nom de l'application
+  - HEROKU_TOKEN: Jeton d'authentification pour Heroku
+  
+Lors d'un push sur la branche main le déploiement sera automatiquement effectué depuis l'image Docker.
+Les tests et le linting seront vérifiés (avec pytest et flake8) avant le déploiement et uniquement sur les autres branches que main.
