@@ -85,20 +85,23 @@ Le déploiement sur Heroku nécessite les critères suivants:
 - Un compte Sentry
 
 Créer un fichier .env en local avec les valeurs suivantes:
-- SECRET_KEY='Clé_secrète_Django'
-- DEBUG='Valeur' (0 = False, 1 = True)
-- ALLOWED_HOSTS='['Localhost', 'oc-lettings-mahtieusc']
-- SENTRY_DSN='Clé_Sentry'
+- `SECRET_KEY`='Clé_secrète_Django'
+- `DEBUG`='Valeur' (0 = False, 1 = True)
+- `ALLOWED_HOSTS`='['localhost', 'nom_application']
+- `SENTRY_DSN`='Clé_Sentry'
 
 Pour la pipeline de CircleCI:
 
 - Avoir un compte CircleCI
 - Autoriser le projet
 - Dans les options du projet, renseigner les variables d'environnements suivantes:
-  - DOCKER_PWD: Mot de passe Docker Hub
-  - DOCKER_USER: Nom de compte Docker Hub
-  - HEROKU_APP: Nom de l'application
-  - HEROKU_TOKEN: Jeton d'authentification pour Heroku
+  - `DOCKER_PWD`: Mot de passe Docker Hub
+  - `DOCKER_USER`: Nom de compte Docker Hub
+  - `HEROKU_APP`: Nom de l'application
+  - `HEROKU_TOKEN`: Jeton d'authentification pour Heroku
   
+Remplacer dans le fichier `.circleci/config.yml`
+`mathieusc/oc-lettings` par `votre-dépôt-Docker-Hub`
+
 Lors d'un push sur la branche main le déploiement sera automatiquement effectué depuis l'image Docker.
 Les tests et le linting seront vérifiés (avec pytest et flake8) avant le déploiement et uniquement sur les autres branches que main.
