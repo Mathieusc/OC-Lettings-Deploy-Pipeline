@@ -75,26 +75,3 @@ workflows:
           filters:
             branches:
               only: main
-
-      # - deploy-docker:
-      #     requires:
-      #       - build-and-test
-      #     filters:
-      #       branches:
-      #         only: main
-
-  # Push docker image to heroku
-  # - Install Heroku CLI;
-  # - Login to heroku with the API KEY
-  # - Build and push the docker image to Docker Hub
-  # deploy-docker:
-  #   machine: true
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Build and push image to Heroku
-  #         command: |
-  #           sudo curl https://cli-assets.heroku.com/install.sh | sh
-  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-mathieusc web
-  #           HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-mathieusc web
