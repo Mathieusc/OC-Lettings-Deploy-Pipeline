@@ -84,6 +84,12 @@ Le déploiement sur Heroku nécessite les critères suivants:
 - Un compte Heroku
 - Un compte Sentry
 
+Créer un fichier .env en local avec les valeurs suivantes:
+- SECRET_KEY='Clé_secrète_Django'
+- DEBUG='Valeur' (0 = False, 1 = True)
+- ALLOWED_HOSTS='['Localhost', 'oc-lettings-mahtieusc']
+- SENTRY_DSN='Clé_Sentry'
+
 Pour la pipeline de CircleCI:
 
 - Avoir un compte CircleCI
