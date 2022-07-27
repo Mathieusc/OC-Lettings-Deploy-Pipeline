@@ -54,7 +54,7 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP} web
 
-# Invoke jobs via workflows.
+# Invoke jobs via workflows:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   linting-and-test:
