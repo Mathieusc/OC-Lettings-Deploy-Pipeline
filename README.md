@@ -80,6 +80,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 Le déploiement sur Heroku nécessite les critères suivants:
 
+- Un compte CircleCI
 - Un compte Docker Hub
 - Un compte Heroku
 - Un compte Sentry
