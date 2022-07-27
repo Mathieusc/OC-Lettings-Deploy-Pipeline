@@ -104,5 +104,5 @@ Pour la pipeline de CircleCI:
 Remplacer dans le fichier `.circleci/config.yml`
 `mathieusc/oc-lettings` par `votre-dépôt-Docker-Hub`
 
-Lors d'un push sur la branche main le déploiement sera automatiquement effectué depuis l'image Docker.
-Les tests et le linting seront vérifiés (avec pytest et flake8) avant le déploiement et uniquement sur les autres branches que main.
+Lors d'un push sur la branche main uniquement, le déploiement Heroku sera automatiquement effectué depuis l'image Docker.  
+Les tests et le linting seront vérifiés (avec pytest et flake8) avant le déploiement.
