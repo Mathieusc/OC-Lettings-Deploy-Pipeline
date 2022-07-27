@@ -60,9 +60,6 @@ workflows:
   linting-and-test:
     jobs:
       - build-and-test
-        # filters:
-        #   branches:
-        #     ignore: main
   build-and-push-and-deploy:
     jobs:
       - build-and-test
