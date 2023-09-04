@@ -1,3 +1,4 @@
+![Orange County Lettings banner](https://user.oc-static.com/upload/2023/07/20/1689880374259_Orange%20County%20Lettings%20Ad.png)  
 ## Résumé
 
 Site web d'Orange County Lettings
